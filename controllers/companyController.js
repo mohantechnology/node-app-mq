@@ -1,4 +1,4 @@
-const path = require('path');
+// const path = require('path');
 const catchError = require('../middlewares/catchError');
 const AppError = require("../utils/AppError");
 const fetch = require('cross-fetch');
@@ -7,8 +7,8 @@ const { JSDOM } = jsdom;
 
 /* import models */
 
-
-const fetchCompanyData =   (query) => {
+const fetchCompanyData =   (query) => { 
+  /* eslint-disable no-async-promise-executor */
   return new Promise(async(resolve, reject) => {
     try {
 
@@ -22,8 +22,7 @@ const fetchCompanyData =   (query) => {
         body: JSON.stringify({ search: query, filter: 'company' })
       });
 
-      if (response.status >= 400) {
-        console.log( response)
+      if (response.status >= 400) { 
         throw new AppError("Bad response from server" ,500);
       }
       const responseText = await response.text();
@@ -31,25 +30,24 @@ const fetchCompanyData =   (query) => {
       // extract data from html string 
       const dom = new JSDOM(responseText);
       const companyElementList = dom.window.document.getElementsByTagName("div");
-      let companyList = []
+      let companyList = [];
 
-      for (i = 0; i < companyElementList.length; i++) {
+      for (let i = 0; i < companyElementList.length; i++) {
 
         companyList.push({
           companyTitle: companyElementList[i].textContent,
           companyId: companyElementList[i].id.split("/").pop(),
-        })
+        });
       }
-
 
       resolve(companyList);
     } catch (err) {
       // console.error(err);
-      reject( err )
+      reject( err );
     }
   }
-  )
-}
+  );
+};
 
 module.exports.searchCompany =  catchError(async (req, res) => {
 
@@ -59,9 +57,7 @@ module.exports.searchCompany =  catchError(async (req, res) => {
     throw new AppError("Must have some character to search", 400);
   }
 
+  const companyList = await fetchCompanyData(req.query.query);
 
-  const companyList = await fetchCompanyData(req.query.query)
-
-  res.json(companyList)
+  res.json(companyList);
 });
-
