@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 
 var validate ={ 
-
   
   email: (input)=> {
   
@@ -15,7 +14,6 @@ var validate ={
     return   {status:"error" ,message : "Please Enter a valid email " };  
   
   },
-  
   
 };
   

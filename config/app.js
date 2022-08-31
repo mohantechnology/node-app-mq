@@ -10,14 +10,11 @@ const bodyParser = require('body-parser');
 
 app.use(cookieParser());
  
- 
 app.use(bodyParser.json());
 // app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors( { credentials: true}));
-
- 
  
 /*Initilize Routes */
 require("./../routes")(app);

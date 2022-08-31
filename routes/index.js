@@ -1,5 +1,5 @@
 "use strict"; 
-const userRoutes = require("./comanyRoutes"); 
+const companyRoutes = require("./companyRoutes"); 
 
 const init = (app) => { 
   /*Make Request Body Avaliable to Frontend */
@@ -9,7 +9,7 @@ const init = (app) => {
   });
   app.set('trust proxy', true);  
  
-  app.use('/',userRoutes);
+  app.use('/',companyRoutes);
 
   app.use((req, res) => { 
     const err = new Error("Page Not Found");
