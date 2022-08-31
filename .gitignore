@@ -8,7 +8,6 @@ temp.*
 temp.*
 .env
 .env.example
-database.js
 # upload/
 socket/
 views/temp.html
