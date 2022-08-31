@@ -131,3 +131,14 @@ module.exports.removeCompany = catchError(async (req, res) => {
   }
 
 });
+
+
+ 
+module.exports.home = catchError(async (req, res) => {
+
+ 
+  return res.status(200).json({
+    message: "Api is Running Successfully"
+  });
+
+});
