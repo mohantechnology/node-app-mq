@@ -1,0 +1,17 @@
+node_modules/
+**/logs
+myfile/
+myfile2/
+mailjet/
+temp.js
+temp.*
+temp.*
+.env
+.env.example
+database.js
+# upload/
+socket/
+views/temp.html
+F:\nodejsproject\chat-app\chat\app\views\temp.html
+google.html
+
