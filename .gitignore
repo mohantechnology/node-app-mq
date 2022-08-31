@@ -6,8 +6,7 @@ mailjet/
 temp.js
 temp.*
 temp.*
-.env
-.env.example
+.env 
 # upload/
 socket/
 views/temp.html
