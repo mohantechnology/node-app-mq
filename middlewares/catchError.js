@@ -50,8 +50,7 @@ module.exports  = (func) => {
 
     // func(req, res, next).catch(next);
     func(req, res, next).catch((err)=>{
- console.log( err)
- console.log( "err.name = "+ err.name)
+ 
       try{ 
         if(err.name === 'SequelizeValidationError'    ) { return   handleValidationError(err, res);}
         if(err.name === 'SequelizeUniqueConstraintError') return err = handleDuplicateKeyError(err, res);

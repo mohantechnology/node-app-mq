@@ -8,9 +8,9 @@ const { JSDOM } = jsdom;
 /* import models */
 const Company = require('../model/Company');
 
-const fetchCompanyData =   (query) => { 
+const fetchCompanyData = (query) => {
   /* eslint-disable no-async-promise-executor */
-  return new Promise(async(resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
 
       // fetch detail from target endpoint 
@@ -23,8 +23,8 @@ const fetchCompanyData =   (query) => {
         body: JSON.stringify({ search: query, filter: 'company' })
       });
 
-      if (response.status >= 400) { 
-        throw new AppError("Bad response from server" ,500);
+      if (response.status >= 400) {
+        throw new AppError("Bad response from server", 500);
       }
       const responseText = await response.text();
 
@@ -44,13 +44,13 @@ const fetchCompanyData =   (query) => {
       resolve(companyList);
     } catch (err) {
       // console.error(err);
-      reject( err );
+      reject(err);
     }
   }
   );
 };
 
-module.exports.searchCompany =  catchError(async (req, res) => {
+module.exports.searchCompany = catchError(async (req, res) => {
 
   req.query.query = req.query.query ? req.query.query.trim() : undefined;
 
@@ -66,24 +66,27 @@ module.exports.searchCompany =  catchError(async (req, res) => {
 
 
 module.exports.addCompany = catchError(async (req, res) => {
- 
-  // if (!req.body.password || !req.body.conformPassword) {
-  //   throw new AppError("Must have field 'password', 'conformPassword' ", 400);
-  // }
-  // if (req.body.password !== req.body.conformPassword) {
-  //   throw new AppError("Password not Matched ", 400);
-  // }
-  req.body.title =   req.body.title ?  req.body.title.trim(): null ; 
-  req.body.cId =   req.body.cId ?  req.body.cId.trim(): null ; 
 
-   console.log( "req.body ***88" ) ; 
-   console.log( req.body ) ; 
+  req.body.title = req.body.title ? req.body.title.trim() : null;
+  req.body.cId = req.body.cId ? req.body.cId.trim() : null;
 
-    let result =  await  Company.create(req.body)
-    console.log( "result" )
-    console.log( result )
-  return res.status(201).json(result) ; 
+  if (!req.body.title || !req.body.cId) {
+    throw new AppError("Must have field 'title', 'cId' ", 400);
+  }
+
+  let result = await Company.create(req.body) 
+  return res.status(201).json(result);
 
 
 
 });
+
+module.exports.listAllCompany = catchError(async (req, res) => {
+ 
+  let result = await Company.findAll( );
+  return res.status(200).json(result);
+ 
+
+});
+
+ 
