@@ -22,28 +22,13 @@ async function connectToDatabase() {
     await sequelize.authenticate();
     console.info('Connection to database sucessful');
  
+
   } catch (err) {
-    console.error("Failed to Connect with database");
-    // console.error(err); 
-    await sleep(3000);
-    // sequelize =  new Sequelize(DB_LINK, options);
+    console.error("Failed to Connect with database");    // console.error(err); 
+    await sleep(3000); 
     await connectToDatabase();
   }
 }
-
-// If the Node process ends, close the  connection 
-
-// async function closeConnection(){
-//   if( sequelize){
-//     sequelize.close()
-//     console.info ("Connection Closed !!"); 
-//     process.exit(0);
-//   }
-
-// }
-
-// [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach((eventType) => {
-//   process.on(eventType,closeConnection);
-// })
+ 
 
 module.exports = { connectToDatabase, sequelize };
