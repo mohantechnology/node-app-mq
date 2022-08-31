@@ -6,6 +6,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 /* import models */
+const Company = require('../model/Company');
 
 const fetchCompanyData =   (query) => { 
   /* eslint-disable no-async-promise-executor */
@@ -35,8 +36,8 @@ const fetchCompanyData =   (query) => {
       for (let i = 0; i < companyElementList.length; i++) {
 
         companyList.push({
-          companyTitle: companyElementList[i].textContent,
-          companyId: companyElementList[i].id.split("/").pop(),
+          title: companyElementList[i].textContent,
+          cId: companyElementList[i].id.split("/").pop(),
         });
       }
 
@@ -60,4 +61,5 @@ module.exports.searchCompany =  catchError(async (req, res) => {
   const companyList = await fetchCompanyData(req.query.query);
 
   res.json(companyList);
+  
 });

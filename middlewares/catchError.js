@@ -49,7 +49,7 @@ module.exports  = (func) => {
 
       try{ 
         if(err.name === 'ValidationError'    ) { return   handleValidationError(err, res);}
-        if(err.name === 'MongoServerError') return err = handleDuplicateKeyError(err, res);
+        if(err.name === 'SequelizeUniqueConstraintError') return err = handleDuplicateKeyError(err, res);
         else if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res);
         else res.status(err.statusCode||500).json({
           message : err.message

@@ -1,8 +1,8 @@
 require('dotenv').config();
 const app = require('./config/app');
 // const constant = require('./Utils/constant.js');
-require('./config/database')();
-
+require('./config/database').connectToDatabase();
+ 
 const port = process.env.PORT || 3000;
 
 app.all('/*', (req, res) => {
