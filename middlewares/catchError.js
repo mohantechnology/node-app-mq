@@ -1,15 +1,19 @@
   
 const handleDuplicateKeyError = (err, res) => {
-  try { 
-    const fieldNameList =  err && err.keyValue && Object.keys(err.keyValue) || [];
-    // const error = `An account with that ${field} already exists.`;
+  try {  
+    let  fieldNameList =   [];
+    if( err?.errors?.length){ 
+      fieldNameList = err.errors.map( (item)=> item.message )
+    }
+ 
     
-    const error = `An account with given values ${fieldNameList.join(",")}  already exists.`;
+    // const error = `An account with given values ${fieldNameList.join(",")}  already exists.`; 
     res.status(err.statusCode || 409 ).json({
-      message : error
+      message : fieldNameList.join(",")
     });
   }
   catch (err ){
+    console.error(err)
     res.status(500).json({ message : "Something went wrong at 'handleDuplicateKeyError' "  });
   }
  
@@ -46,9 +50,10 @@ module.exports  = (func) => {
 
     // func(req, res, next).catch(next);
     func(req, res, next).catch((err)=>{
-
+ console.log( err)
+ console.log( "err.name = "+ err.name)
       try{ 
-        if(err.name === 'ValidationError'    ) { return   handleValidationError(err, res);}
+        if(err.name === 'SequelizeValidationError'    ) { return   handleValidationError(err, res);}
         if(err.name === 'SequelizeUniqueConstraintError') return err = handleDuplicateKeyError(err, res);
         else if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res);
         else res.status(err.statusCode||500).json({

@@ -61,5 +61,29 @@ module.exports.searchCompany =  catchError(async (req, res) => {
   const companyList = await fetchCompanyData(req.query.query);
 
   res.json(companyList);
-  
+
+});
+
+
+module.exports.addCompany = catchError(async (req, res) => {
+ 
+  // if (!req.body.password || !req.body.conformPassword) {
+  //   throw new AppError("Must have field 'password', 'conformPassword' ", 400);
+  // }
+  // if (req.body.password !== req.body.conformPassword) {
+  //   throw new AppError("Password not Matched ", 400);
+  // }
+  req.body.title =   req.body.title ?  req.body.title.trim(): null ; 
+  req.body.cId =   req.body.cId ?  req.body.cId.trim(): null ; 
+
+   console.log( "req.body ***88" ) ; 
+   console.log( req.body ) ; 
+
+    let result =  await  Company.create(req.body)
+    console.log( "result" )
+    console.log( result )
+  return res.status(201).json(result) ; 
+
+
+
 });

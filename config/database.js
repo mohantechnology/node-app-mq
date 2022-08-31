@@ -15,16 +15,18 @@ const options = {
     idle: 10000
   },
 };
-var sequelize =  new Sequelize(DB_LINK, options);;
+var sequelize =  new Sequelize(DB_LINK, options);
 
 async function connectToDatabase() {
   try {
     await sequelize.authenticate();
     console.info('Connection to database sucessful');
+ 
   } catch (err) {
     console.error("Failed to Connect with database");
     // console.error(err); 
     await sleep(3000);
+    // sequelize =  new Sequelize(DB_LINK, options);
     await connectToDatabase();
   }
 }

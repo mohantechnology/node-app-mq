@@ -4,6 +4,6 @@ const userRoutes = express.Router();
 const companyController = require('../controllers/companyController.js');
 
 userRoutes.get("/search_company",  companyController.searchCompany);
-// userRoutes.get("/add_company",  companyController.addCompany);
+userRoutes.post("/company",  companyController.addCompany); // create company 
 
 module.exports = userRoutes;
