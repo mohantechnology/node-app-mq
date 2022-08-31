@@ -3,9 +3,8 @@ const handleDuplicateKeyError = (err, res) => {
   try {  
     let  fieldNameList =   [];
     if( err?.errors?.length){ 
-      fieldNameList = err.errors.map( (item)=> item.message )
+      fieldNameList = err.errors.map( (item)=> item.message );
     }
- 
     
     // const error = `An account with given values ${fieldNameList.join(",")}  already exists.`; 
     res.status(err.statusCode || 409 ).json({
@@ -13,7 +12,7 @@ const handleDuplicateKeyError = (err, res) => {
     });
   }
   catch (err ){
-    console.error(err)
+    console.error(err);
     res.status(500).json({ message : "Something went wrong at 'handleDuplicateKeyError' "  });
   }
  

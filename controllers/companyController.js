@@ -8,8 +8,6 @@ const { JSDOM } = jsdom;
 /* import models */
 const Company = require('../model/Company');
 
-
-
 /*  fetch company detail from target url    */
 const fetchCompanyData = (query) => {
   /* eslint-disable no-async-promise-executor */
@@ -53,8 +51,6 @@ const fetchCompanyData = (query) => {
   );
 };
 
-
-
 /*  search company     */
 module.exports.searchCompany = catchError(async (req, res) => {
 
@@ -66,14 +62,12 @@ module.exports.searchCompany = catchError(async (req, res) => {
 
   const companyList = await fetchCompanyData(req.query.query);
 
-
   return res.status(200).json({
     message: "Search List are",
     data: companyList
   });
 
 });
-
 
 /*  created company with given detail   */
 module.exports.addCompany = catchError(async (req, res) => {
@@ -88,7 +82,7 @@ module.exports.addCompany = catchError(async (req, res) => {
   let result = await Company.create({
     title: req.body.title,
     cId: req.body.cId
-  })
+  });
 
   return res.status(201).json({
     message: "Successfully added Company",
@@ -96,9 +90,6 @@ module.exports.addCompany = catchError(async (req, res) => {
   });
 
 });
-
-
-
 
 /*  list all  Company  */
 module.exports.listAllCompany = catchError(async (req, res) => {
@@ -111,7 +102,6 @@ module.exports.listAllCompany = catchError(async (req, res) => {
   });
 
 });
-
 
 /*  remove company with given id   */
 module.exports.removeCompany = catchError(async (req, res) => {
@@ -127,8 +117,6 @@ module.exports.removeCompany = catchError(async (req, res) => {
     }
   });
 
-
-
   if (result) {
     return res.status(200).json({
       message: "Successfully deleted  Company",
@@ -141,8 +129,5 @@ module.exports.removeCompany = catchError(async (req, res) => {
       message: "Company Not Exist",
     });
   }
-
-
-
 
 });

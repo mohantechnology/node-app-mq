@@ -31,9 +31,6 @@ async function connectToDatabase() {
   }
 }
 
-
-
-
 // If the Node process ends, close the  connection 
 
 // async function closeConnection(){
